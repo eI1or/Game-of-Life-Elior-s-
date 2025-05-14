@@ -1,0 +1,32 @@
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        File inputFile = new File("D:\\TestPic\\Amogus.png");
+
+        if (!inputFile.exists()) {
+            System.out.println("Error: Problem locating image");
+            return;
+        }
+
+        BufferedImage buffered = ImageIO.read(inputFile);
+
+        int newwidth = buffered.getWidth() / 50;
+        int newheight = buffered.getHeight() / 50;
+
+        BufferedImage myimagebuff = new BufferedImage(newwidth, newheight, buffered.getType());
+
+        Graphics2D g = myimagebuff.createGraphics();
+        g.drawImage(buffered, 0, 0, newwidth, newheight, null);
+        g.dispose();
+        // Save the new image to a file
+        File outputFile = new File("D:\\TestPic\\Amogus_resized.png");
+        ImageIO.write(myimagebuff, "PNG", outputFile);
+        
+    }
+}
